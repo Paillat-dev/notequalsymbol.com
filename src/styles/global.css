@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0d0d0d;
+  --color-surface: #161616;
+  --color-surface-raised: #1c1c1c;
+  --color-border: #2a2a2a;
+  --color-border-brand: #e8c54733;
+  --color-text: #f0ede6;
+  --color-muted: #9a948c;
+  --color-muted-subtle: #6b6560;
+  --color-brand: #e8c547;
+  --color-equal: #4aff91;
+  --color-notequal: #ff4a4a;
+
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+
+  --animate-flash-equal: flash-equal 0.5s ease-out;
+  --animate-flash-notequal: flash-notequal 0.5s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+
+  @keyframes flash-equal {
+    0% {
+      background-color: rgba(74, 255, 145, 0.15);
+      border-color: rgba(74, 255, 145, 0.5);
+    }
+    100% {
+      background-color: inherit;
+      border-color: inherit;
+    }
+  }
+
+  @keyframes flash-notequal {
+    0% {
+      background-color: rgba(255, 74, 74, 0.15);
+      border-color: rgba(255, 74, 74, 0.5);
+    }
+    100% {
+      background-color: inherit;
+      border-color: inherit;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-brand) 35%, transparent);
+  color: var(--color-text);
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+.tool-input {
+  font-family: var(--font-mono);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: border-color 0.15s ease;
+}
+
+.tool-input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+.tool-input:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.tool-input::placeholder {
+  color: var(--color-muted);
+}
+
+.compare-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-brand);
+  color: var(--color-brand);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.compare-btn:hover {
+  background-color: var(--color-brand);
+  color: var(--color-bg);
+}
+
+.compare-btn:focus-visible,
+.copy-btn:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.result-panel {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.tool-desc {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.color-swatch {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-bg);
+  flex-shrink: 0;
+}
+
+.color-swatch.invalid {
+  border-style: dashed;
+  border-color: var(--color-notequal);
+}
+
+.color-swatch.valid {
+  border-color: color-mix(in srgb, var(--color-text) 25%, var(--color-border));
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 50;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-brand);
+  border-radius: 0.25rem;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+.result-panel.equal {
+  border-color: color-mix(in srgb, var(--color-equal) 40%, var(--color-border));
+  color: var(--color-equal);
+}
+
+.result-panel.notequal {
+  border-color: color-mix(in srgb, var(--color-notequal) 40%, var(--color-border));
+  color: var(--color-notequal);
+}
+
+.result-panel.neutral {
+  color: var(--color-muted);
+}
+
+.copy-btn {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  padding: 0.25rem 0.5rem;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.copy-btn:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.bento-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s ease;
+}
+
+.bento-card:hover {
+  border-color: var(--color-border-brand);
+}
+
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-brand) 20%,
+    var(--color-brand) 80%,
+    transparent
+  );
+  opacity: 0.4;
+}

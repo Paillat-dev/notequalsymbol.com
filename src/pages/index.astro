@@ -1,0 +1,771 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="notequalsymbol.com — tools to verify if two things are equal or not. Text, color, numbers, dates, JSON, URLs, and more.">
+  <meta name="keywords" content="equality checker, compare text, compare json, compare urls, not equal, inequality tools">
+  <title>notequalsymbol.com — Equality, interrogated</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <a href="#main" class="skip-link">Skip to tools</a>
+
+  <!-- Navbar -->
+  <nav class="border-b border-border px-6 py-5 flex items-center justify-between max-w-7xl mx-auto">
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="text-2xl font-bold text-brand leading-none translate-y-px">≠</span>
+      <span class="text-sm font-semibold tracking-tight text-text leading-none group-hover:text-brand transition-colors">notequalsymbol</span>
+    </a>
+    <p class="text-xs text-muted uppercase tracking-[0.2em] hidden sm:block">equality, interrogated</p>
+  </nav>
+
+  <!-- Hero -->
+  <header class="max-w-7xl mx-auto px-6 pt-16 pb-12">
+    <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-10 items-end mb-10">
+      <div>
+        <p class="text-xs text-brand uppercase tracking-[0.25em] mb-3">Input A</p>
+        <h1 class="text-5xl md:text-7xl font-bold text-text leading-none">A</h1>
+      </div>
+      <div class="text-center lg:pb-2">
+        <span class="text-6xl md:text-8xl font-bold text-brand block leading-none select-none">≠</span>
+        <span class="text-xs text-muted uppercase tracking-[0.2em] mt-2 block">or =</span>
+      </div>
+      <div class="lg:text-right">
+        <p class="text-xs text-brand uppercase tracking-[0.25em] mb-3">Input B</p>
+        <h1 class="text-5xl md:text-7xl font-bold text-text leading-none">B</h1>
+      </div>
+    </div>
+
+    <p class="text-lg text-text/80 max-w-2xl mb-10 leading-relaxed">
+      Paste two things. Find out if they're equal — and in what sense.
+      Standard comparisons, bespoke rules, beyond mathematics.
+    </p>
+
+    <!-- Universal Checker -->
+    <section id="universal" class="bento-card p-6 md:p-8" data-tool="universal">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand">Universal Checker</h2>
+        <span class="text-sm text-muted">auto-detects type</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="universal-a" class="text-xs text-muted uppercase tracking-wider mb-2 block">A</label>
+          <textarea id="universal-a" rows="3" class="tool-input w-full rounded px-4 py-3 text-sm resize-y" placeholder="anything goes…"></textarea>
+        </div>
+        <div>
+          <label for="universal-b" class="text-xs text-muted uppercase tracking-wider mb-2 block">B</label>
+          <textarea id="universal-b" rows="3" class="tool-input w-full rounded px-4 py-3 text-sm resize-y" placeholder="anything goes…"></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <button type="button" class="compare-btn px-5 py-2.5 rounded" data-compare="universal" aria-label="Compare universal inputs">Compare</button>
+        <button type="button" class="copy-btn rounded" data-copy="universal" aria-label="Copy universal comparison result">Copy result</button>
+        <span class="text-sm text-muted hidden sm:inline">Enter to compare</span>
+      </div>
+
+      <div id="universal-result" class="result-panel neutral rounded p-4 min-h-[3rem] animate-fade-in" aria-live="polite">
+        Waiting for input…
+      </div>
+    </section>
+  </header>
+
+  <div class="gold-rule max-w-7xl mx-auto"></div>
+
+  <!-- Tool Grid -->
+  <main id="main" class="max-w-7xl mx-auto px-6 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <h2 class="text-2xl font-bold">Specialized Checkers</h2>
+      <p class="text-sm text-muted uppercase tracking-[0.15em]">six ways to disagree</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+
+      <!-- Text -->
+      <section class="bento-card p-6 flex flex-col" data-tool="text">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">Text</h3>
+        <p class="tool-desc mb-4">Exact, case, whitespace, Unicode</p>
+        <div class="space-y-3 flex-1">
+          <input type="text" id="text-a" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="first string" data-input-a>
+          <input type="text" id="text-b" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="second string" data-input-b>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded flex-1" data-compare="text">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="text">Copy</button>
+        </div>
+        <div id="text-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+      <!-- Color -->
+      <section class="bento-card p-6 flex flex-col lg:col-span-1" data-tool="color">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">Color</h3>
+        <p class="tool-desc mb-4">Hex, RGB, HSL, named colors — formats are normalized automatically</p>
+        <div class="space-y-3 flex-1">
+          <div class="flex gap-3 items-center">
+            <div id="color-swatch-a" class="color-swatch" role="img" aria-label="Color A preview: none"></div>
+            <div class="flex-1 min-w-0">
+              <label for="color-a" class="text-xs text-muted uppercase tracking-wider mb-1 block">Color A</label>
+              <input type="text" id="color-a" class="tool-input w-full rounded px-3 py-2.5 text-sm" placeholder="ff0000, #f00, rgb(255,0,0), (255,0,0)" data-input-a autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+          <div class="flex gap-3 items-center">
+            <div id="color-swatch-b" class="color-swatch" role="img" aria-label="Color B preview: none"></div>
+            <div class="flex-1 min-w-0">
+              <label for="color-b" class="text-xs text-muted uppercase tracking-wider mb-1 block">Color B</label>
+              <input type="text" id="color-b" class="tool-input w-full rounded px-3 py-2.5 text-sm" placeholder="red, hsl(0 100% 50%), 255 0 0" data-input-b autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded flex-1" data-compare="color">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="color">Copy</button>
+        </div>
+        <div id="color-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+      <!-- Number -->
+      <section class="bento-card p-6 flex flex-col" data-tool="number">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">Number</h3>
+        <p class="tool-desc mb-4">Decimal, hex, binary, octal</p>
+        <div class="space-y-3 flex-1">
+          <input type="text" id="number-a" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="42 or 0x2A or 0b101010" data-input-a>
+          <input type="text" id="number-b" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="42" data-input-b>
+          <div>
+            <label for="number-tolerance" class="text-xs text-muted flex justify-between mb-1">
+              <span>Tolerance</span>
+              <span id="number-tolerance-value">0</span>
+            </label>
+            <input type="range" id="number-tolerance" min="0" max="10" value="0" step="0.001" class="w-full accent-brand">
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded flex-1" data-compare="number">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="number">Copy</button>
+        </div>
+        <div id="number-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+      <!-- Date -->
+      <section class="bento-card p-6 flex flex-col" data-tool="date">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">Date</h3>
+        <p class="tool-desc mb-4">ISO strings, timestamps, natural language</p>
+        <div class="space-y-3 flex-1">
+          <input type="text" id="date-a" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="2026-06-08 or 1717804800000" data-input-a>
+          <input type="text" id="date-b" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="Jun 8, 2026" data-input-b>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded flex-1" data-compare="date">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="date">Copy</button>
+        </div>
+        <div id="date-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+      <!-- JSON -->
+      <section class="bento-card p-6 flex flex-col lg:col-span-2" data-tool="json">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">JSON</h3>
+        <p class="tool-desc mb-4">Deep structural equality, key order ignored</p>
+        <div class="grid md:grid-cols-2 gap-3 flex-1">
+          <textarea id="json-a" rows="5" class="tool-input w-full rounded px-3 py-2 text-sm resize-y" placeholder='{"a": 1, "b": [2,3]}' data-input-a></textarea>
+          <textarea id="json-b" rows="5" class="tool-input w-full rounded px-3 py-2 text-sm resize-y" placeholder='{"b": [2,3], "a": 1}' data-input-b></textarea>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded" data-compare="json">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="json">Copy</button>
+        </div>
+        <div id="json-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+      <!-- URL -->
+      <section class="bento-card p-6 flex flex-col" data-tool="url">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand mb-1">URL</h3>
+        <p class="tool-desc mb-4">Normalized protocol, host, params</p>
+        <div class="space-y-3 flex-1">
+          <input type="text" id="url-a" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="https://Example.com/path?q=1&b=2" data-input-a>
+          <input type="text" id="url-b" class="tool-input w-full rounded px-3 py-2 text-sm" placeholder="http://example.com/path?b=2&q=1/" data-input-b>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="compare-btn px-4 py-2 rounded flex-1" data-compare="url">Compare</button>
+          <button type="button" class="copy-btn rounded" data-copy="url">Copy</button>
+        </div>
+        <div id="url-result" class="result-panel neutral rounded p-3 mt-3 text-xs" aria-live="polite">—</div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="gold-rule max-w-7xl mx-auto"></div>
+
+  <!-- Philosophy -->
+  <section class="max-w-7xl mx-auto px-6 py-16">
+    <blockquote class="border-l-2 border-brand pl-6 max-w-3xl">
+      <p class="text-xl md:text-2xl font-medium leading-relaxed text-text">
+        Equality is never one thing. Two strings can match exactly yet differ in case.
+        Two URLs can look different yet resolve identically. Two numbers can be close enough.
+      </p>
+      <p class="text-sm text-muted mt-4 leading-relaxed">
+        This toolbox doesn't assume a single definition of sameness — it interrogates each pair
+        under every rule that might matter.
+      </p>
+    </blockquote>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border px-6 py-10 max-w-7xl mx-auto">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-bold text-brand leading-none translate-y-px" aria-hidden="true">≠</span>
+        <span class="text-sm text-text/80 leading-none">notequalsymbol.com</span>
+      </div>
+      <p class="text-sm text-muted">Tools for verifying equality — and inequality.</p>
+    </div>
+    <div class="mt-6 pt-6 border-t border-border max-w-2xl">
+      <p class="text-sm text-text/80 leading-relaxed">
+        This is a nonsense website. It exists because someone wondered whether two things are the same,
+        then wondered harder, then built seven ways to still not be sure.
+      </p>
+      <p class="text-sm text-muted mt-2">
+        Built by Claude (Anthropic) via Cursor. No guarantees on verdicts, vibes, or life choices.
+      </p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    // ─── Utilities ───────────────────────────────────────────────
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
+    function flashResult(el, isEqual) {
+      el.classList.remove('animate-flash-equal', 'animate-flash-notequal');
+      void el.offsetWidth;
+      el.classList.add(isEqual ? 'animate-flash-equal' : 'animate-flash-notequal');
+    }
+
+    function setResult(toolId, html, isEqual, isError = false) {
+      const el = getEl(`${toolId}-result`);
+      if (!el) return;
+      el.innerHTML = html;
+      el.classList.remove('equal', 'notequal', 'neutral');
+      if (isError) {
+        el.classList.add('notequal');
+        el.setAttribute('aria-label', 'Comparison error');
+      } else {
+        el.classList.add(isEqual ? 'equal' : 'notequal');
+        el.setAttribute('aria-label', isEqual ? 'Equal' : 'Not equal');
+        flashResult(el, isEqual);
+      }
+      el.dataset.lastResult = el.textContent || '';
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function resultLine(label, equal) {
+      const sym = equal ? '=' : '≠';
+      const cls = equal ? 'text-equal' : 'text-notequal';
+      return `<div class="${cls}">${sym} ${escapeHtml(label)}</div>`;
+    }
+
+    // ─── Text ────────────────────────────────────────────────────
+
+    function compareText(a, b) {
+      const exact = a === b;
+      const caseInsensitive = a.toLowerCase() === b.toLowerCase();
+      const normalized = a.trim().replace(/\s+/g, ' ') === b.trim().replace(/\s+/g, ' ');
+      const unicodeNorm = a.normalize('NFC') === b.normalize('NFC');
+
+      const lines = [
+        resultLine('Exact match', exact),
+        resultLine('Case-insensitive', caseInsensitive),
+        resultLine('Whitespace-normalized', normalized),
+        resultLine('Unicode-normalized (NFC)', unicodeNorm),
+      ];
+
+      const allEqual = exact && caseInsensitive && normalized && unicodeNorm;
+      return { html: lines.join(''), isEqual: allEqual };
+    }
+
+    // ─── Color ───────────────────────────────────────────────────
+
+    const colorCanvas = document.createElement('canvas');
+    colorCanvas.width = colorCanvas.height = 1;
+    const colorCtx = colorCanvas.getContext('2d');
+
+    function expandHex(hex) {
+      if (hex.length === 3 || hex.length === 4) {
+        return hex.split('').map((c) => c + c).join('');
+      }
+      return hex;
+    }
+
+    function rgbaFromComputed(computed) {
+      if (typeof computed !== 'string') return null;
+
+      if (computed.startsWith('#')) {
+        const full = expandHex(computed.slice(1));
+        return {
+          r: parseInt(full.slice(0, 2), 16),
+          g: parseInt(full.slice(2, 4), 16),
+          b: parseInt(full.slice(4, 6), 16),
+          a: full.length === 8 ? parseInt(full.slice(6, 8), 16) / 255 : 1,
+          css: computed,
+        };
+      }
+
+      const rgb = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (rgb) {
+        return {
+          r: +rgb[1],
+          g: +rgb[2],
+          b: +rgb[3],
+          a: rgb[4] !== undefined ? +rgb[4] : 1,
+          css: computed,
+        };
+      }
+      return null;
+    }
+
+    function normalizeColorInput(input) {
+      let str = input.trim();
+      if (!str) return null;
+
+      // Bare hex: ff0000, f00
+      if (/^#?[0-9a-fA-F]{3,8}$/.test(str)) {
+        return str.startsWith('#') ? str : `#${str}`;
+      }
+
+      // Bare RGB tuple: (255, 0, 0), 255,0,0, 255 0 0
+      const rgbTuple = str.match(/^\(?\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*\)?$/);
+      if (rgbTuple) {
+        return `rgb(${rgbTuple[1]}, ${rgbTuple[2]}, ${rgbTuple[3]})`;
+      }
+
+      // rgb 255 0 0
+      const rgbSpaces = str.match(/^rgba?\s+(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})$/i);
+      if (rgbSpaces) {
+        return `rgb(${rgbSpaces[1]}, ${rgbSpaces[2]}, ${rgbSpaces[3]})`;
+      }
+
+      // Bare HSL: (0, 100%, 50%) or 0 100% 50%
+      const hslTuple = str.match(/^\(?\s*(\d+(?:\.\d+)?)\s*[, ]\s*(\d+(?:\.\d+)?)%\s*[, ]\s*(\d+(?:\.\d+)?)%\s*\)?$/);
+      if (hslTuple) {
+        return `hsl(${hslTuple[1]}, ${hslTuple[2]}%, ${hslTuple[3]}%)`;
+      }
+
+      // hsl 0 100% 50% (modern space-separated)
+      const hslSpaces = str.match(/^hsla?\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%/i);
+      if (hslSpaces) {
+        return `hsl(${hslSpaces[1]}, ${hslSpaces[2]}%, ${hslSpaces[3]}%)`;
+      }
+
+      return str;
+    }
+
+    function parseColor(input) {
+      const normalized = normalizeColorInput(input);
+      if (!normalized) return null;
+
+      try {
+        colorCtx.fillStyle = '#000000';
+        colorCtx.fillStyle = normalized;
+        const computed = colorCtx.fillStyle;
+        const rgba = rgbaFromComputed(computed);
+        if (!rgba) return null;
+        return { ...rgba, normalized, input: input.trim() };
+      } catch {
+        return null;
+      }
+    }
+
+    function colorsEqual(c1, c2) {
+      return c1.r === c2.r && c1.g === c2.g && c1.b === c2.b && Math.abs(c1.a - c2.a) < 0.01;
+    }
+
+    function compareColor(a, b) {
+      const c1 = parseColor(a);
+      const c2 = parseColor(b);
+
+      if (!a.trim() || !b.trim()) {
+        return { html: 'Both color fields need a value', isEqual: false, isError: true };
+      }
+      if (!c1 && !c2) {
+        return { html: 'Neither color could be parsed — try #ff0000, ff0000, rgb(255,0,0), or (255,0,0)', isEqual: false, isError: true };
+      }
+      if (!c1) {
+        return { html: `A: could not parse "${escapeHtml(a.trim())}"`, isEqual: false, isError: true };
+      }
+      if (!c2) {
+        return { html: `B: could not parse "${escapeHtml(b.trim())}"`, isEqual: false, isError: true };
+      }
+
+      const equal = colorsEqual(c1, c2);
+      const html = [
+        resultLine(`RGB match (${c1.r}, ${c1.g}, ${c1.b}) vs (${c2.r}, ${c2.g}, ${c2.b})`, equal),
+        `<div class="text-muted mt-2">A resolved: ${escapeHtml(c1.normalized)} → rgb(${c1.r}, ${c1.g}, ${c1.b})</div>`,
+        `<div class="text-muted">B resolved: ${escapeHtml(c2.normalized)} → rgb(${c2.r}, ${c2.g}, ${c2.b})</div>`,
+      ].join('');
+
+      return { html, isEqual: equal };
+    }
+
+    function updateColorSwatch(inputId, swatchId) {
+      const input = getEl(inputId);
+      const swatch = getEl(swatchId);
+      if (!input || !swatch) return;
+
+      const side = inputId.endsWith('-a') ? 'A' : 'B';
+      const color = parseColor(input.value);
+
+      if (color) {
+        swatch.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+        swatch.classList.remove('invalid');
+        swatch.classList.add('valid');
+        swatch.setAttribute('aria-label', `Color ${side} preview: rgb(${color.r}, ${color.g}, ${color.b})`);
+      } else if (input.value.trim()) {
+        swatch.style.backgroundColor = 'transparent';
+        swatch.classList.remove('valid');
+        swatch.classList.add('invalid');
+        swatch.setAttribute('aria-label', `Color ${side} preview: unrecognised input`);
+      } else {
+        swatch.style.backgroundColor = 'transparent';
+        swatch.classList.remove('valid', 'invalid');
+        swatch.setAttribute('aria-label', `Color ${side} preview: none`);
+      }
+    }
+
+    // ─── Number ──────────────────────────────────────────────────
+
+    function parseNumber(input) {
+      let str = input.trim().toLowerCase().replace(/\s+/g, '');
+      if (!str) return NaN;
+
+      // Thousands separators: 1,000,000
+      if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(str)) {
+        str = str.replace(/,/g, '');
+      }
+
+      if (str.startsWith('0x')) return parseInt(str, 16);
+      if (str.startsWith('0b')) return parseInt(str.slice(2), 2);
+      if (str.startsWith('0o')) return parseInt(str.slice(2), 8);
+      return parseFloat(str);
+    }
+
+    function compareNumber(a, b, tolerance) {
+      const n1 = parseNumber(a);
+      const n2 = parseNumber(b);
+
+      if (isNaN(n1) || isNaN(n2)) {
+        return { html: 'Invalid number input', isEqual: false, isError: true };
+      }
+
+      const exact = n1 === n2;
+      const withinTolerance = Math.abs(n1 - n2) <= tolerance;
+      const diff = Math.abs(n1 - n2);
+
+      const html = [
+        resultLine(`Exact (${n1} === ${n2})`, exact),
+        resultLine(`Within tolerance ±${tolerance} (diff: ${diff})`, withinTolerance),
+      ].join('');
+
+      return { html, isEqual: withinTolerance };
+    }
+
+    // ─── Date ────────────────────────────────────────────────────
+
+    function parseDate(input) {
+      const str = input.trim();
+      if (!str) return null;
+      const num = Number(str);
+      const d = !isNaN(num) && str.match(/^\d+$/) ? new Date(num) : new Date(str);
+      return isNaN(d.getTime()) ? null : d;
+    }
+
+    function compareDate(a, b) {
+      const d1 = parseDate(a);
+      const d2 = parseDate(b);
+
+      if (!d1 || !d2) {
+        return { html: 'Invalid date input', isEqual: false, isError: true };
+      }
+
+      const equal = d1.getTime() === d2.getTime();
+      const html = [
+        resultLine(`Same moment (${d1.toISOString()})`, equal),
+        equal
+          ? ''
+          : `<div class="text-muted mt-1">A: ${escapeHtml(d1.toISOString())}<br>B: ${escapeHtml(d2.toISOString())}</div>`,
+      ].join('');
+
+      return { html, isEqual: equal };
+    }
+
+    // ─── JSON ────────────────────────────────────────────────────
+
+    function deepEqual(a, b) {
+      if (a === b) return true;
+      if (a === null || b === null) return a === b;
+      if (typeof a !== typeof b) return false;
+
+      if (Array.isArray(a) && Array.isArray(b)) {
+        if (a.length !== b.length) return false;
+        return a.every((item, i) => deepEqual(item, b[i]));
+      }
+
+      if (typeof a === 'object' && typeof b === 'object') {
+        const keysA = Object.keys(a).sort();
+        const keysB = Object.keys(b).sort();
+        if (keysA.length !== keysB.length) return false;
+        if (!keysA.every((k, i) => k === keysB[i])) return false;
+        return keysA.every((k) => deepEqual(a[k], b[k]));
+      }
+
+      return false;
+    }
+
+    function compareJson(a, b) {
+      let objA, objB;
+      try {
+        objA = JSON.parse(a);
+      } catch (e) {
+        return { html: `A: Invalid JSON — ${escapeHtml(e.message)}`, isEqual: false, isError: true };
+      }
+      try {
+        objB = JSON.parse(b);
+      } catch (e) {
+        return { html: `B: Invalid JSON — ${escapeHtml(e.message)}`, isEqual: false, isError: true };
+      }
+
+      const equal = deepEqual(objA, objB);
+      const html = resultLine('Deep structural equality', equal);
+      return { html, isEqual: equal };
+    }
+
+    // ─── URL ─────────────────────────────────────────────────────
+
+    function normalizeUrl(input) {
+      let url;
+      try {
+        url = new URL(input.trim());
+      } catch {
+        try {
+          url = new URL('https://' + input.trim());
+        } catch {
+          return null;
+        }
+      }
+
+      const sortedParams = [...url.searchParams.entries()]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+        .join('&');
+
+      let path = url.pathname.replace(/\/+$/, '') || '/';
+      const host = url.hostname.toLowerCase();
+      const protocol = url.protocol.toLowerCase();
+
+      return `${protocol}//${host}${path}${sortedParams ? '?' + sortedParams : ''}`;
+    }
+
+    function compareUrl(a, b) {
+      const normA = normalizeUrl(a);
+      const normB = normalizeUrl(b);
+
+      if (!normA || !normB) {
+        return { html: 'Invalid URL input', isEqual: false, isError: true };
+      }
+
+      const equal = normA === normB;
+      const html = [
+        resultLine('Normalized URL match', equal),
+        `<div class="text-muted mt-1 break-all">A: ${escapeHtml(normA)}<br>B: ${escapeHtml(normB)}</div>`,
+      ].join('');
+
+      return { html, isEqual: equal };
+    }
+
+    // ─── Universal ───────────────────────────────────────────────
+
+    function compareUniversal(a, b) {
+      if (!a.trim() && !b.trim()) {
+        return { html: 'Both inputs empty', isEqual: true };
+      }
+      if (!a.trim() || !b.trim()) {
+        return { html: 'One input is empty', isEqual: false };
+      }
+
+      const results = [];
+
+      // Text checks
+      const text = compareText(a, b);
+      results.push({ label: 'Text (exact)', equal: a === b });
+      results.push({ label: 'Text (case-insensitive)', equal: a.toLowerCase() === b.toLowerCase() });
+      results.push({ label: 'Text (whitespace-normalized)', equal: a.trim().replace(/\s+/g, ' ') === b.trim().replace(/\s+/g, ' ') });
+
+      // Number
+      const n1 = parseNumber(a);
+      const n2 = parseNumber(b);
+      if (!isNaN(n1) && !isNaN(n2)) {
+        results.push({ label: 'Number (exact)', equal: n1 === n2 });
+      }
+
+      // Color
+      const c1 = parseColor(a);
+      const c2 = parseColor(b);
+      if (c1 && c2) {
+        results.push({ label: 'Color (RGB)', equal: colorsEqual(c1, c2) });
+      }
+
+      // Date
+      const d1 = parseDate(a);
+      const d2 = parseDate(b);
+      if (d1 && d2) {
+        results.push({ label: 'Date (same moment)', equal: d1.getTime() === d2.getTime() });
+      }
+
+      // JSON
+      try {
+        const j1 = JSON.parse(a);
+        const j2 = JSON.parse(b);
+        results.push({ label: 'JSON (deep equal)', equal: deepEqual(j1, j2) });
+      } catch { /* not json */ }
+
+      // URL
+      const u1 = normalizeUrl(a);
+      const u2 = normalizeUrl(b);
+      if (u1 && u2) {
+        results.push({ label: 'URL (normalized)', equal: u1 === u2 });
+      }
+
+      const html = results.map((r) => resultLine(r.label, r.equal)).join('');
+      const anyEqual = results.some((r) => r.equal);
+      const allEqual = results.every((r) => r.equal);
+
+      const summary = allEqual
+        ? '<div class="text-equal font-semibold mb-2">= Equal under all applicable rules</div>'
+        : anyEqual
+          ? '<div class="text-brand font-semibold mb-2">≈ Equal under some rules, not others</div>'
+          : '<div class="text-notequal font-semibold mb-2">≠ Not equal under any tested rule</div>';
+
+      return { html: summary + html, isEqual: allEqual };
+    }
+
+    // ─── Tool runners ────────────────────────────────────────────
+
+    const runners = {
+      universal: () => {
+        const a = getEl('universal-a').value;
+        const b = getEl('universal-b').value;
+        const r = compareUniversal(a, b);
+        setResult('universal', r.html, r.isEqual, r.isError);
+      },
+      text: () => {
+        const a = getEl('text-a').value;
+        const b = getEl('text-b').value;
+        const r = compareText(a, b);
+        setResult('text', r.html, r.isEqual);
+      },
+      color: () => {
+        const a = getEl('color-a').value;
+        const b = getEl('color-b').value;
+        const r = compareColor(a, b);
+        setResult('color', r.html, r.isEqual, r.isError);
+      },
+      number: () => {
+        const a = getEl('number-a').value;
+        const b = getEl('number-b').value;
+        const tol = parseFloat(getEl('number-tolerance').value) || 0;
+        const r = compareNumber(a, b, tol);
+        setResult('number', r.html, r.isEqual, r.isError);
+      },
+      date: () => {
+        const a = getEl('date-a').value;
+        const b = getEl('date-b').value;
+        const r = compareDate(a, b);
+        setResult('date', r.html, r.isEqual, r.isError);
+      },
+      json: () => {
+        const a = getEl('json-a').value;
+        const b = getEl('json-b').value;
+        const r = compareJson(a, b);
+        setResult('json', r.html, r.isEqual, r.isError);
+      },
+      url: () => {
+        const a = getEl('url-a').value;
+        const b = getEl('url-b').value;
+        const r = compareUrl(a, b);
+        setResult('url', r.html, r.isEqual, r.isError);
+      },
+    };
+
+    // ─── Event wiring ────────────────────────────────────────────
+
+    document.querySelectorAll('[data-compare]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tool = btn.dataset.compare;
+        if (runners[tool]) runners[tool]();
+      });
+    });
+
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const tool = btn.dataset.copy;
+        const el = getEl(`${tool}-result`);
+        if (!el || !el.dataset.lastResult) return;
+        await navigator.clipboard.writeText(el.dataset.lastResult);
+        const orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      });
+    });
+
+    // Enter to compare within tool sections
+    document.querySelectorAll('[data-tool]').forEach((section) => {
+      const tool = section.dataset.tool;
+      section.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey || !e.shiftKey)) {
+          const tag = e.target.tagName;
+          if (tag === 'TEXTAREA' && e.shiftKey) return;
+          if (tag === 'INPUT' || tag === 'TEXTAREA') {
+            e.preventDefault();
+            if (runners[tool]) runners[tool]();
+          }
+        }
+      });
+    });
+
+    // Number tolerance label
+    const tolSlider = getEl('number-tolerance');
+    const tolLabel = getEl('number-tolerance-value');
+    if (tolSlider && tolLabel) {
+      tolSlider.addEventListener('input', () => {
+        tolLabel.textContent = tolSlider.value;
+      });
+    }
+
+    // Color swatch live preview
+    ['color-a', 'color-b'].forEach((id) => {
+      const input = getEl(id);
+      const swatchId = id.replace('color-', 'color-swatch-');
+      if (!input) return;
+      input.addEventListener('input', () => updateColorSwatch(id, swatchId));
+      input.addEventListener('blur', () => updateColorSwatch(id, swatchId));
+    });
+  </script>
+
+</body>
+</html>
